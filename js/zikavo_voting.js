@@ -10,18 +10,18 @@
       if(vid) {
         vid = '/' + vid;
       } else {
-        vid = false;
+        vid = '/' + 0;
       }
       $.ajax({
-        url: window.location.origin + "/system/voting/" + nid,
+        url: window.location.origin + "/system/voting/" + nid + vid,
         success: function(data){
            if (data !== false) {
-//            alert(vid);
+            console.log(data);
              var voteValue = $('span.zikavo-vote-' + nid).html();
              $('span.zikavo-vote-' + nid).html(data.value);
-//             if (data.vid) {
-//               jQuery.cookie('zikavo_voted', data.vid);
-//             }
+             if (data.vid) {
+               jQuery.cookie('zikavo_voted', data.vid);
+             }
              if ($this.hasClass('zik_not_voted')) {
                $this.removeClass('zik_not_voted');
                $this.addClass('zik_voted');

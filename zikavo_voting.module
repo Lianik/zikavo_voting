@@ -36,10 +36,10 @@ function zikavo_voting_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 4,
   );
-  $items['system/voting/%'] = array(
+  $items['system/voting/%/%'] = array(
     'title' => 'Zikavo Voting',
     'page callback' => 'zikavo_voting_processor',
-    'page arguments' => array(2),
+    'page arguments' => array(2, 3),
     'access arguments' => array('zikavo node voting'),
   );
 
@@ -85,9 +85,8 @@ function zikavo_voting_results() {
 }
 
 
-function zikavo_voting_processor($nid) {
+function zikavo_voting_processor($nid, $vid) {
   global $user;
-//  $vid = arg(3);
   if (is_numeric($nid)) {
     $result_nid = zikavo_user_voted($nid, $user->uid);
 
@@ -97,7 +96,7 @@ function zikavo_voting_processor($nid) {
     return FALSE;
   }
 
-  if ($result_nid !== $nid) {
+  if ($result_nid !== $nid && $vid !== 0) {
     $answer = array();
     $query = db_insert('zikavo_voted')
       ->fields(array(
