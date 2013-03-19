@@ -1,0 +1,8 @@
+name = "Zikavo Voting"
+description = "Module which allows per-node voting"
+package = "custom"
+core = 7.x
+
+files[] = zikavo_voting.module
+scripts[] = js/zikavo_voting.js
+stylesheets[all][] = css/zikavo_voting.css

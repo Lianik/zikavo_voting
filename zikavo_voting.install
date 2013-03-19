@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Module install/schema hooks.
+ */
+
+/**
+ * Implements hook_schema().
+ * @return array
+ */
+
+function zikavo_voting_schema() {
+  $schema = array();
+  $schema['zikavo_voted'] = array(
+    'description' => 'Stores user votes information',
+    'fields' => array(
+      'vid' => array(
+        'description' => 'Voting ID',
+        'type' => 'serial',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'User has been voted identifier',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'Node on what has been voted',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'value' => array(
+        'description' => 'Value has been rated by this user for that node',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'date' => array(
+        'description' => 'UNIX Timestamp of current vote',
+        'type' => 'int',
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'vid' => array('vid'),
+    ),
+  );
+
+  $schema['zikavo_voting_summary'] = array(
+    'description' => 'Stores voting summary',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Node on what has been voted',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'sum_value' => array(
+        'description' => 'Summary of voting results',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+  );
+  return $schema;
+}
