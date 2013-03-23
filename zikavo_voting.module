@@ -38,8 +38,10 @@ function zikavo_voting_menu() {
   );
   $items['system/voting/%/%'] = array(
     'title' => 'Zikavo Voting',
+    'type' => MENU_CALLBACK,
     'page callback' => 'zikavo_voting_processor',
     'page arguments' => array(2, 3),
+//    'access callback' => TRUE,
     'access arguments' => array('zikavo node voting'),
   );
 
@@ -186,4 +188,8 @@ function zikavo_user_voted($nid, $uid = NULL) {
   else {
     return FALSE;
   }
+}
+
+function zikavo_voting_init() {
+  drupal_add_library('system', 'jquery.cookie');
 }
