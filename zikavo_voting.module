@@ -26,6 +26,7 @@ function zikavo_voting_permission() {
 /**
  * Implementation of hook_menu().
  */
+
 function zikavo_voting_menu() {
   $items = array();
 
@@ -41,7 +42,6 @@ function zikavo_voting_menu() {
     'type' => MENU_CALLBACK,
     'page callback' => 'zikavo_voting_processor',
     'page arguments' => array(2, 3),
-//    'access callback' => TRUE,
     'access arguments' => array('zikavo node voting'),
   );
 
@@ -61,7 +61,7 @@ function zikavo_voting_node_view($node, $view_mode, $langcode) {
   else {
     $voting_class = 'zik_not_voted';
   }
-  $voting_field = '<span class="zikavo-vote-' . $node->nid .' zikavo-vote-results">' . $votes_number . '</span><a href="#" data-nid="' . $node->nid . '" class="zikavo-vote ' . $voting_class . '">Lez vote!</a>';
+  $voting_field = '<div class="zikavo_voting"><div class="zikavo-vote-' . $node->nid .' zikavo-vote-results">' . $votes_number . '</div><a href="#" data-nid="' . $node->nid . '" class="zikavo-vote ' . $voting_class . '">&nbsp</a></div>';
   $node->content['zikavo_voting_field'] = array(
     '#markup' => $voting_field,
     '#weight' => 10,
@@ -70,7 +70,7 @@ function zikavo_voting_node_view($node, $view_mode, $langcode) {
 }
 
 /**
- *
+ * Callback for page creating
  */
 
 function zikavo_voting_results() {
@@ -79,9 +79,6 @@ function zikavo_voting_results() {
     ->orderBy('nid')
     ->execute();
   $result = $query->fetchAll();
-
-  // var_dump($result);
-  // die();
 
   return 'trololo';
 }
@@ -148,8 +145,6 @@ function zikavo_voting_processor($nid, $vid) {
       ->execute();
     $sum_value = $query_sum->fetchField();
     $sum_value_dupd = $sum_value - $voting_value;
-    // var_dump($nid);
-    //   die();
     $query_sum_upd = db_update('zikavo_voting_summary')
       ->fields(array('sum_value' => $sum_value_dupd,))
       ->condition('nid', $nid)

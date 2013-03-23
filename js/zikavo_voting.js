@@ -16,9 +16,8 @@
         url: window.location.origin + "/system/voting/" + nid + vid,
         success: function(data){
            if (data !== false) {
-            console.log(data);
              var voteValue = $('span.zikavo-vote-' + nid).html();
-             $('span.zikavo-vote-' + nid).html(data.value);
+             $('div.zikavo-vote-' + nid).html(data.value);
              if (data.vid) {
                jQuery.cookie('zikavo_voted_' + nid, data.vid);
              } else {

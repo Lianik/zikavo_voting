@@ -1,6 +1,33 @@
 
 /*pharma_message.module*/
-
-.zik_voted {
-  color: #000;
+div.zikavo_voting div {
+  background: url('../img/grey_arrow.png');
+  border-radius: 4px 0 0 4px;
+  color: #fff;
+  float: left;
+  font-family: Impact;
+  font-size: 20px;
+  height: 34px;
+  padding-right: 10px;
+  padding-top: 1px;
+  position: relative;
+  text-align: right;
+  width: 45px;
+}
+div.zikavo_voting a {
+  background: url('../img/vote_up.png') center center no-repeat;
+  border: 3px solid #BDBDBD;
+  border-radius: 18px;
+  display: block;
+  height: 30px;
+  margin-left: 58px;
+  position: relative;
+  width: 30px;
+}
+div.zikavo_voting a:hover {
+  border-color: #E7A579;
+  text-decoration: none;
+}
+div.zikavo_voting a.zik_voted {
+  border-color: #E7A579;
 }
