@@ -62,7 +62,7 @@ function zikavo_voting_node_view($node, $view_mode, $langcode) {
     $voting_class = 'zik_not_voted';
   }
   $voting_field = '<div class="zikavo_voting"><div class="zikavo-vote-' . $node->nid .' zikavo-vote-results">' . $votes_number . '</div><a href="#" data-nid="' . $node->nid . '" class="zikavo-vote ' . $voting_class . '">&nbsp</a></div>';
-  $node->content['zikavo_voting_field'] = array(
+  $node->content['zik_voting_field'] = array(
     '#markup' => $voting_field,
     '#weight' => 10,
     '#theme' => 'mymodule_my_additional_field',
