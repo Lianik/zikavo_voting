@@ -74,13 +74,35 @@ function zikavo_voting_node_view($node, $view_mode, $langcode) {
  */
 
 function zikavo_voting_results() {
-  $query = db_select('zikavo_voted', 'zv')
-    ->fields('zv', array('nid', 'uid', 'date'))
-    ->orderBy('nid')
-    ->execute();
-  $result = $query->fetchAll();
+  $header[] = array("data" => "Node");
+  $header[] = array("data" => "User");
+  $header[] = array("data" => "Date");
 
-  return 'trololo';
+  $query = db_select('zikavo_voted', 'zv');
+  $query->fields('zv', array('nid', 'uid', 'date'));
+  $query->fields('n', array('title'));
+  $query->fields('u', array('name'));
+  $query->join('node', 'n', 'zv.nid = n.nid');
+  $query->join('users', 'u', 'zv.uid = u.uid');
+  $query->orderBy('zv.date');
+  $result = $query->execute();
+  $result = $result->fetchAll();
+
+  foreach ($result as $value) {
+    $row = array();
+    $row[] = l($value->title, 'node/' . $value->nid); 
+    if (isset($value->name) && !empty($value->name)) {
+      $row[] = l($value->name, 'user/' . $value->uid);
+    }
+    else {
+      $row[] = 'Anonymous';
+    }
+    $row[] = $value->date;
+    $rows[] = $row;
+  }
+
+  $table = theme('table', array('header' => $header, 'rows' => $rows));   
+  return $table;
 }
 
 
